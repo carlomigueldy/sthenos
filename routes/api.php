@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 Route::prefix('auth')->group(function () {
     Route::post('login', 'AuthController@login');
+    Route::post('register', 'AuthController@register');
 
     /**
      * Only the authenticated user can 
