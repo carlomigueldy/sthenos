@@ -13,10 +13,25 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('products', 'ProductController@index');
+Route::get('products/{id}', 'ProductController@show');
+
+/**
+ * Only the owner can access these routes.
+ */
+Route::middleware([
+    'auth:api',
+    'owner',
+])->group(function () {
+    Route::post('products', 'ProductController@store');
+    Route::put('products/{id}', 'ProductController@update');
+    Route::delete('products/{id}', 'ProductController@destroy');
+});
+
 Route::prefix('auth')->group(function () {
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@register');
-
+    
     /**
      * Only the authenticated user can 
      * access these defined routes.
