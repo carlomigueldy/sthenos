@@ -24,6 +24,11 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+    /**
+     * User registration.
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(Request $request)
     {
         $this->validate($request, [
@@ -32,16 +37,22 @@ class AuthController extends Controller
             'password' => 'required|confirmed',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
-        return response()->json([
-            'user' => $user,
-            'message' => 'You have been registered successfully!'
-        ]);
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+    
+            return response()->json([
+                'user' => $user,
+                'message' => 'You have been registered successfully!'
+            ]);
+        } catch (Exception $error) {
+            return response()->json([
+                'message' => $error,
+            ]);
+        }
     }
 
     /**
