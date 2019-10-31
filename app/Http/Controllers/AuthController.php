@@ -24,7 +24,7 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function register()
+    public function register(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|unique:users',
