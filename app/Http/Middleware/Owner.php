@@ -15,12 +15,12 @@ class Owner
      */
     public function handle($request, Closure $next)
     {
-        if (! $request->user()->role->name == 'Owner') {
+        if ($request->user()->role->name == 'Customer') {
             return response()->json([
                 'message' => 'Unauthorized. You are not an owner.'
             ]);
+        } else {
+            return $next($request);
         }
-        
-        return $next($request);
     }
 }
