@@ -16,8 +16,8 @@ class CreateCartsTable extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->unsignedTinyInteger('user_id');
-            $table->integer('items'); 
-            $table->decimal('total_amount');
+            $table->integer('items')->default(0); 
+            $table->decimal('total_amount')->default(0);
         });
     }
 

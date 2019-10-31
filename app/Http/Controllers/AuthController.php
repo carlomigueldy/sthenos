@@ -43,9 +43,17 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
             ]);
+
+            /**
+             * Make a cart for the registered user.
+             */
+            $cart = Cart::create([
+                'user_id' => $user->id,
+            ]);
     
             return response()->json([
                 'user' => $user,
+                'cart' => $cart,
                 'message' => 'You have been registered successfully!'
             ]);
         } catch (Exception $error) {
