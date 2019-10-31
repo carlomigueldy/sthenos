@@ -16,6 +16,13 @@ use Illuminate\Http\Request;
 Route::get('products', 'ProductController@index');
 Route::get('products/{id}', 'ProductController@show');
 
+Route::middleware('auth:api')->group(function () {
+    Route::apiResource('cart', 'CartController');
+
+    Route::get('orders', 'OrderController@index');
+    Route::get('orders/{id}', 'OrderController@show');
+});
+
 /**
  * Only the owner can access these routes.
  */
