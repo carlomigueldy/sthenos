@@ -57,4 +57,24 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * A user has a role.
+     * 
+     * @return void
+     */
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
+
+    /**
+     * A user has only one cart.
+     * 
+     * @return void
+     */
+    public function cart()
+    {
+        return $this->hasOne('App\Cart');
+    }
 }
